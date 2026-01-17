@@ -155,6 +155,6 @@ if st.button("Predict"):
     prob = model.predict_proba(input_df)[0][1]
 
     if pred == 1:
-        st.error(f"⚠ High Attrition Risk! Probability: {prob:.2f}")
+        st.error(f"High Attrition Risk! Probability: {prob:.2f}")
     else:
-        st.success(f"✔ Low Attrition Risk. Probability: {prob:.2f}")
+        st.success(f"Low Attrition Risk. Probability: {prob:.2f}")
