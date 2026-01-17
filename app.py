@@ -2,6 +2,50 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+st.markdown(
+    """
+    <style>
+    /* Main background */
+    .stApp {
+        background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+    }
+
+    /* Title */
+    h1 {
+        color: #0d6efd;
+        text-align: center;
+    }
+
+    /* Section headers */
+    h2, h3 {
+        color: #343a40;
+    }
+
+    /* Input boxes */
+    .stTextInput, .stNumberInput, .stSelectbox, .stSlider {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 6px;
+    }
+
+    /* Buttons */
+    div.stButton > button {
+        background-color: #0d6efd;
+        color: white;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-weight: bold;
+    }
+
+    div.stButton > button:hover {
+        background-color: #084298;
+        color: white;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 model = joblib.load("attrition_model.pkl")
 
@@ -149,12 +193,46 @@ if years_manager > total_years:
 if years_promo > total_years:
     st.warning("Years Since Last Promotion cannot be greater than total working years.")
 
+st.subheader("HR Risk Tolerance Settings")
+
+risk_tolerance = st.slider(
+    "Select HR Risk Tolerance",
+    min_value=1,
+    max_value=3,
+    value=2,
+    format="%d",
+    help="1 = Conservative | 2 = Balanced | 3 = Proactive"
+)
+
+if risk_tolerance == 1:
+    low_threshold = 0.40
+    high_threshold = 0.65
+    st.caption("Conservative mode: Flags only high-risk employees")
+
+elif risk_tolerance == 2:
+    low_threshold = 0.30
+    high_threshold = 0.55
+    st.caption("Balanced mode: Standard HR monitoring")
+
+else:
+    low_threshold = 0.20
+    high_threshold = 0.45
+    st.caption("Proactive mode: Early attrition warning enabled")
+
 # Prediction
 if st.button("Predict"):
-    pred = model.predict(input_df)[0]
     prob = model.predict_proba(input_df)[0][1]
 
-    if pred == 1:
-        st.error(f"High Attrition Risk! Probability: {prob:.2f}")
+    st.subheader("Attrition Risk Assessment")
+
+    if prob < low_threshold:
+        st.success(f"Low Attrition Risk\n\nProbability: {prob:.2f}")
+        st.write("Employee is likely to stay with the organization.")
+
+    elif prob < high_threshold:
+        st.warning(f"Medium Attrition Risk\n\nProbability: {prob:.2f}")
+        st.write("Employee shows moderate risk. Monitoring is recommended.")
+
     else:
-        st.success(f"Low Attrition Risk. Probability: {prob:.2f}")
+        st.error(f"High Attrition Risk\n\nProbability: {prob:.2f}")
+        st.write("Immediate HR intervention is recommended.")
