@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Load trained XGBoost model
 model = joblib.load("attrition_model.pkl")
 
 # Expected model feature order:
