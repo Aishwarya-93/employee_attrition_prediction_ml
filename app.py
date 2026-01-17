@@ -31,18 +31,6 @@ env_sat = st.slider("Environment Satisfaction (1-4)", 1, 4, 3)
 gender = st.selectbox("Gender", ["Male", "Female"])
 hourly_rate = st.number_input("HourlyRate", min_value=10, max_value=200, value=60)
 job_involve = st.slider("Job Involvement (1-4)", 1, 4, 3)
-with st.expander("What is Job Level?"):
-    st.write("""
-    | Level | Meaning | Example Roles |
-    |------:|---------|---------------|
-    | 1 | Entry-level employee | Technician, Junior Analyst |
-    | 2 | Intermediate | Sales Executive, HR Assistant |
-    | 3 | Senior / Experienced | Senior Scientist, Senior Developer |
-    | 4 | Managerial | Manager, Team Lead |
-    | 5 | Top-Level Management | Director, VP |
-    """)
-
-job_level = st.slider("Job Level (1-5)", 1, 5, 2)
 job_sat = st.slider("Job Satisfaction (1-4)", 1, 4, 3)
 monthly_income = st.number_input("Monthly Income", 1000, 200000, 20000)
 monthly_rate = st.number_input("Monthly Rate", 1000, 30000, 10000)
@@ -74,8 +62,37 @@ job_role = st.selectbox("Job Role",
      "Manufacturing Director","Research Director","Research Scientist",
      "Sales Executive","Sales Representative"])
 
-marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
+with st.expander("What is Job Level?"):
+    st.write("""
+    | Level | Meaning | Example Roles |
+    |------:|---------|---------------|
+    | 1 | Entry-level employee | Technician, Junior Analyst |
+    | 2 | Intermediate | Sales Executive, HR Assistant |
+    | 3 | Senior / Experienced | Senior Scientist, Senior Developer |
+    | 4 | Managerial | Manager, Team Lead |
+    | 5 | Top-Level Management | Director, VP |
+    """)
 
+job_role_to_level = {
+    "Healthcare Representative": 2,
+    "Human Resources": 2,
+    "Laboratory Technician": 1,
+    "Sales Representative": 1,
+    "Sales Executive": 2,
+    "Research Scientist": 3,
+    "Manufacturing Director": 4,
+    "Manager": 4,
+    "Research Director": 5
+}
+job_level = job_role_to_level[job_role]
+
+st.info(f"Assigned Job Level: {job_level}")
+job_level = st.slider("Job Level (1–5)", 1, 5, job_role_to_level[job_role])
+
+if abs(job_level - job_role_to_level[job_role]) > 1:
+    st.warning("Selected job level does not usually match this job role.")
+
+marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
 input_df = pd.DataFrame([{
     "Age": age,
