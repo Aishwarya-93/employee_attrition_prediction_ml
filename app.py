@@ -83,6 +83,14 @@ with tab1:
     daily_rate = st.number_input("DailyRate", 100, 2000, 800)
     distance = st.number_input("Distance From Home", 1, 50, 5)
     education = st.slider("Education Level (1-5)", 1, 5, 3)
+    with st.expander("What do Education Levels mean?"):
+        st.write("""
+        1 - Below College  
+        2 - College  
+        3 - Bachelor  
+        4 - Master  
+        5 - Doctor  
+        """)
     env_sat = st.slider("Environment Satisfaction (1-4)", 1, 4, 3)
     gender = st.selectbox("Gender", ["Male", "Female"])
     hourly_rate = st.number_input("HourlyRate", 10, 200, 60)
@@ -114,31 +122,28 @@ with tab1:
         ["Healthcare Representative","Human Resources","Laboratory Technician","Manager",
          "Manufacturing Director","Research Director","Research Scientist",
          "Sales Executive","Sales Representative"])
+
     job_role_level_map = {
-    "Laboratory Technician": 1,
-    "Sales Representative": 1,
+        "Laboratory Technician": 1,
+        "Sales Representative": 1,
+        "Healthcare Representative": 2,
+        "Human Resources": 2,
+        "Sales Executive": 2,
+        "Research Scientist": 3,
+        "Manufacturing Director": 3,
+        "Manager": 4,
+        "Research Director": 4,
+    }
 
-    "Healthcare Representative": 2,
-    "Human Resources": 2,
-    "Sales Executive": 2,
+    job_level = job_role_level_map.get(job_role, 2)
 
-    "Research Scientist": 3,
-    "Manufacturing Director": 3,
+    st.write(f"Suggested Job Level based on role: {job_level}")
 
-    "Manager": 4,
-    "Research Director": 4,
+    marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
-    # fallback (if needed)
-}
+    st.subheader("HR Risk Tolerance Settings")
 
-job_level = job_role_level_map.get(job_role, 2)
-
-st.write(f"Suggested Job Level based on role: {job_level}")
-marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
-
-st.subheader("HR Risk Tolerance Settings")
-
-risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
+    risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
 
     if risk_tolerance == 1:
         low_threshold = 0.40
