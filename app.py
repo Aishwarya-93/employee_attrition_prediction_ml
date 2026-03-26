@@ -89,22 +89,25 @@ h2 {
 [data-testid="stMetricValue"] {
     color: black !important;
 }
-/* Success box */
+/* Success box (Low Risk) */
 [data-testid="stSuccess"] {
-    background-color: #d1fae5 !important;
-    color: #065f46 !important;
+    background-color: #dcfce7 !important;
+    color: #14532d !important;   /* darker green */
+    font-weight: 600;
 }
 
-/* Warning box */
+/* Warning box (Medium Risk) */
 [data-testid="stWarning"] {
-    background-color: #fef3c7 !important;
-    color: #92400e !important;
+    background-color: #fef9c3 !important;
+    color: #854d0e !important;
+    font-weight: 600;
 }
 
-/* Error box */
+/* Error box (High Risk) */
 [data-testid="stError"] {
     background-color: #fee2e2 !important;
-    color: #991b1b !important;
+    color: #7f1d1d !important;
+    font-weight: 600;
 }
 
 </style>
