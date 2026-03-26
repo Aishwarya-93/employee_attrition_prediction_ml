@@ -89,6 +89,23 @@ h2 {
 [data-testid="stMetricValue"] {
     color: black !important;
 }
+/* Success box */
+[data-testid="stSuccess"] {
+    background-color: #d1fae5 !important;
+    color: #065f46 !important;
+}
+
+/* Warning box */
+[data-testid="stWarning"] {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+}
+
+/* Error box */
+[data-testid="stError"] {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
