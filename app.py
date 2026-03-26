@@ -229,6 +229,7 @@ with tab2:
             title="Attrition Distribution"
         )
         fig1.update_layout(template="plotly_dark")
+        fig1.update_yaxes(title="Employee Count")
         st.plotly_chart(fig1, use_container_width=True)
 
     with colB:
@@ -241,5 +242,6 @@ with tab2:
             title="Attrition by Department"
         )
         fig2.update_layout(template="plotly_dark")
+        fig2.update_yaxes(title="Employee Count")
         st.plotly_chart(fig2, use_container_width=True)
    
