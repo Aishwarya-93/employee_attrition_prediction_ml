@@ -22,6 +22,17 @@ h2, h3 {
     color: #312e81;
 }
 
+.stSlider label,
+.stNumberInput label,
+.stSelectbox label {
+    color: #1e1e2f !important;
+    font-weight: 500;
+
+/* Slider value */
+.stSlider span {
+    color: #1e1e2f !important;
+}
+
 /* KPI Cards */
 [data-testid="metric-container"] {
     background: linear-gradient(135deg, #6a11cb, #2575fc);
@@ -141,7 +152,20 @@ with tab1:
          "Sales Executive","Sales Representative"])
 
     marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
+    st.subheader("HR Risk Tolerance Settings")
 
+    risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
+
+    if risk_tolerance == 1:
+        low_threshold = 0.40
+        high_threshold = 0.65
+    elif risk_tolerance == 2:
+        low_threshold = 0.30
+        high_threshold = 0.55
+    else:
+        low_threshold = 0.20
+        high_threshold = 0.45
+        
     input_df = pd.DataFrame([{
         "Age": age,
         "DailyRate": daily_rate,
@@ -185,9 +209,9 @@ with tab1:
     if st.button("Predict"):
         prob = model.predict_proba(input_df)[0][1]
 
-        if prob < 0.30:
+        if prob < low_threshold:
             st.success(f"Low Risk\nProbability: {prob:.2f}")
-        elif prob < 0.55:
+        elif prob < high_threshold:
             st.warning(f"Medium Risk\nProbability: {prob:.2f}")
         else:
             st.error(f"High Risk\nProbability: {prob:.2f}")
