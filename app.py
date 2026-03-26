@@ -138,7 +138,7 @@ marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
 st.subheader("HR Risk Tolerance Settings")
 
-    risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
+risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
 
     if risk_tolerance == 1:
         low_threshold = 0.40
