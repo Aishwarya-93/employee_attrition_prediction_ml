@@ -21,15 +21,6 @@ h1 {
 h2, h3 {
     color: #312e81;
 }
-/* KPI Titles */
-[data-testid="stMetricLabel"] {
-    color: black !important;
-}
-
-/* KPI Values */
-[data-testid="stMetricValue"] {
-    color: black !important;
-}
 
 /* FIX LABEL TEXT */
 .stSlider label,
@@ -83,6 +74,20 @@ div.stButton > button {
 
 div.stButton > button:hover {
     opacity: 0.9;
+}
+/* Dashboard Header */
+h2 {
+    color: black !important;
+}
+
+/* KPI Titles */
+[data-testid="stMetricLabel"] {
+    color: black !important;
+}
+
+/* KPI Values */
+[data-testid="stMetricValue"] {
+    color: black !important;
 }
 
 </style>
