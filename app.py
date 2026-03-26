@@ -186,15 +186,47 @@ with tab1:
 
     risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
 
-    if risk_tolerance == 1:
-        low_threshold = 0.40
-        high_threshold = 0.65
-    elif risk_tolerance == 2:
-        low_threshold = 0.30
-        high_threshold = 0.55
+    if prob < low_threshold:
+        st.markdown(f"""
+        <div style="
+            background-color:#dcfce7;
+            padding:15px;
+            border-radius:10px;
+            border-left:6px solid #22c55e;
+            color:#14532d;
+            font-weight:600;
+            font-size:16px;">
+            Low Risk Probability: {prob:.2f}
+        </div>
+        """, unsafe_allow_html=True)
+
+    elif prob < high_threshold:
+        st.markdown(f"""
+        <div style="
+            background-color:#fef9c3;
+            padding:15px;
+            border-radius:10px;
+            border-left:6px solid #eab308;
+            color:#854d0e;
+            font-weight:600;
+            font-size:16px;">
+            Medium Risk Probability: {prob:.2f}
+        </div>
+        """, unsafe_allow_html=True)
+
     else:
-        low_threshold = 0.20
-        high_threshold = 0.45
+        st.markdown(f"""
+        <div style="
+            background-color:#fee2e2;
+            padding:15px;
+            border-radius:10px;
+            border-left:6px solid #ef4444;
+            color:#7f1d1d;
+            font-weight:600;
+            font-size:16px;">
+            High Risk Probability: {prob:.2f}
+        </div>
+        """, unsafe_allow_html=True)
 
     input_df = pd.DataFrame([{
         "Age": age,
