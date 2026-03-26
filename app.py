@@ -236,11 +236,11 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
 
         if prob < low_threshold:
-            st.markdown(f"<div style='background:#dcfce7;padding:15px;border-radius:10px;border-left:6px solid #22c55e;color:#14532d;font-weight:600;'>Low Risk Probability: {prob:.2f}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='background:#dcfce7;padding:15px;border-radius:10px;border-left:6px solid #22c55e;color:#14532d;font-weight:600;'>Low Risk of Attrition : {prob:.2f}</div>", unsafe_allow_html=True)
         elif prob < high_threshold:
-            st.markdown(f"<div style='background:#fef9c3;padding:15px;border-radius:10px;border-left:6px solid #eab308;color:#854d0e;font-weight:600;'>Medium Risk Probability: {prob:.2f}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='background:#fef9c3;padding:15px;border-radius:10px;border-left:6px solid #eab308;color:#854d0e;font-weight:600;'>Medium Risk of Attrition: {prob:.2f}</div>", unsafe_allow_html=True)
         else:
-            st.markdown(f"<div style='background:#fee2e2;padding:15px;border-radius:10px;border-left:6px solid #ef4444;color:#7f1d1d;font-weight:600;'>High Risk Probability: {prob:.2f}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='background:#fee2e2;padding:15px;border-radius:10px;border-left:6px solid #ef4444;color:#7f1d1d;font-weight:600;'>High Risk of Attrition: {prob:.2f}</div>", unsafe_allow_html=True)
 
 # -------------------- TAB 2 --------------------
 with tab2:
