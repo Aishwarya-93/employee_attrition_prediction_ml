@@ -89,35 +89,7 @@ h2 {
 [data-testid="stMetricValue"] {
     color: black !important;
 }
-/* Success box */
-[data-testid="stSuccess"] {
-    background-color: #dcfce7 !important;
-}
 
-[data-testid="stSuccess"] p {
-    color: #14532d !important;
-    font-weight: 700;
-}
-
-/* Warning box */
-[data-testid="stWarning"] {
-    background-color: #fef9c3 !important;
-}
-
-[data-testid="stWarning"] p {
-    color: #854d0e !important;
-    font-weight: 700;
-}
-
-/* Error box */
-[data-testid="stError"] {
-    background-color: #fee2e2 !important;
-}
-
-[data-testid="stError"] p {
-    color: #7f1d1d !important;
-    font-weight: 700;
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -141,6 +113,7 @@ model_features = [
 
 tab1, tab2 = st.tabs(["Prediction", "Dashboard"])
 
+# -------------------- TAB 1 --------------------
 with tab1:
 
     st.title("Employee Attrition Prediction System")
@@ -186,47 +159,80 @@ with tab1:
 
     risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
 
-    if prob < low_threshold:
-        st.markdown(f"""
-        <div style="
-            background-color:#dcfce7;
-            padding:15px;
-            border-radius:10px;
-            border-left:6px solid #22c55e;
-            color:#14532d;
-            font-weight:600;
-            font-size:16px;">
-            Low Risk Probability: {prob:.2f}
-        </div>
-        """, unsafe_allow_html=True)
-
-    elif prob < high_threshold:
-        st.markdown(f"""
-        <div style="
-            background-color:#fef9c3;
-            padding:15px;
-            border-radius:10px;
-            border-left:6px solid #eab308;
-            color:#854d0e;
-            font-weight:600;
-            font-size:16px;">
-            Medium Risk Probability: {prob:.2f}
-        </div>
-        """, unsafe_allow_html=True)
-
+    if risk_tolerance == 1:
+        low_threshold = 0.40
+        high_threshold = 0.65
+    elif risk_tolerance == 2:
+        low_threshold = 0.30
+        high_threshold = 0.55
     else:
-        st.markdown(f"""
-        <div style="
-            background-color:#fee2e2;
-            padding:15px;
-            border-radius:10px;
-            border-left:6px solid #ef4444;
-            color:#7f1d1d;
-            font-weight:600;
-            font-size:16px;">
+        low_threshold = 0.20
+        high_threshold = 0.45
+
+    if st.button("Predict"):
+
+        input_df = pd.DataFrame([{
+            "Age": age,
+            "DailyRate": daily_rate,
+            "DistanceFromHome": distance,
+            "Education": education,
+            "EnvironmentSatisfaction": env_sat,
+            "Gender": 1 if gender == "Female" else 0,
+            "HourlyRate": hourly_rate,
+            "JobInvolvement": job_involve,
+            "JobLevel": job_level,
+            "JobSatisfaction": job_sat,
+            "MonthlyIncome": monthly_income,
+            "MonthlyRate": monthly_rate,
+            "NumCompaniesWorked": num_comp,
+            "OverTime": 1 if overtime == "Yes" else 0,
+            "PercentSalaryHike": percent_hike,
+            "PerformanceRating": perf,
+            "RelationshipSatisfaction": relation_sat,
+            "StockOptionLevel": stock,
+            "TotalWorkingYears": total_years,
+            "TrainingTimesLastYear": training,
+            "WorkLifeBalance": work_balance,
+            "YearsAtCompany": years_company,
+            "YearsInCurrentRole": years_role,
+            "YearsSinceLastPromotion": years_promo,
+            "YearsWithCurrManager": years_manager
+        }])
+
+        input_df[f"Department_{department}"] = 1
+        input_df[f"Education_{education_field}"] = 1
+        input_df[f"Role_{job_role}"] = 1
+        input_df[f"Status_{marital}"] = 1
+        input_df[business_travel] = 1
+
+        for col in model_features:
+            if col not in input_df.columns:
+                input_df[col] = 0
+
+        input_df = input_df[model_features]
+
+        prob = model.predict_proba(input_df)[0][1]
+
+        if prob < low_threshold:
+            st.markdown(f"""
+            <div style="background:#dcfce7;padding:15px;border-radius:10px;border-left:6px solid #22c55e;color:#14532d;font-weight:600;">
+            Low Risk Probability: {prob:.2f}
+            </div>
+            """, unsafe_allow_html=True)
+
+        elif prob < high_threshold:
+            st.markdown(f"""
+            <div style="background:#fef9c3;padding:15px;border-radius:10px;border-left:6px solid #eab308;color:#854d0e;font-weight:600;">
+            Medium Risk Probability: {prob:.2f}
+            </div>
+            """, unsafe_allow_html=True)
+
+        else:
+            st.markdown(f"""
+            <div style="background:#fee2e2;padding:15px;border-radius:10px;border-left:6px solid #ef4444;color:#7f1d1d;font-weight:600;">
             High Risk Probability: {prob:.2f}
-        </div>
-        """, unsafe_allow_html=True)
+            </div>
+            """, unsafe_allow_html=True)
 
     input_df = pd.DataFrame([{
         "Age": age,
