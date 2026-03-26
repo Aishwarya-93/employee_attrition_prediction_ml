@@ -2,54 +2,73 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-st.markdown(
-    """
-    <style>
-    /* Main background */
-    .stApp {
-        background: linear-gradient(to right, #e0c3fc, #8ec5fc);
-    }
+import matplotlib.pyplot as plt
+import seaborn as sns
+st.markdown("""
+<style>
 
-    /* Title */
-    h1 {
-        color: #0d6efd;
-        text-align: center;
-    }
+/* Light Gradient Background */
+.stApp {
+    background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+}
 
-    /* Section headers */
-    h2, h3 {
-        color: #343a40;
-    }
+/* Titles */
+h1 {
+    color: #4c1d95;
+    text-align: center;
+}
 
-    /* Input boxes */
-    .stTextInput, .stNumberInput, .stSelectbox, .stSlider {
-        background-color: #ffffff;
-        border-radius: 8px;
-        padding: 6px;
-    }
+h2, h3 {
+    color: #312e81;
+}
 
-    /* Buttons */
-    div.stButton > button {
-        background-color: #0d6efd;
-        color: white;
-        border-radius: 8px;
-        padding: 8px 16px;
-        font-weight: bold;
-    }
+/* KPI Cards */
+[data-testid="metric-container"] {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    padding: 18px;
+    border-radius: 14px;
+    color: white;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}
 
-    div.stButton > button:hover {
-        background-color: #084298;
-        color: white;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+/* KPI Text */
+[data-testid="stMetricLabel"] {
+    color: #030005 !important;
+}
 
+[data-testid="stMetricValue"] {
+    color: black !important;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Inputs */
+.stTextInput, .stNumberInput, .stSelectbox, .stSlider {
+    background-color: white;
+    border-radius: 10px;
+    padding: 6px;
+}
+
+/* Buttons */
+div.stButton > button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: none;
+}
+
+div.stButton > button:hover {
+    opacity: 0.9;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 model = joblib.load("attrition_model.pkl")
+df = pd.read_csv("employee_attrition_ml/employee_attrition_dataset.csv")
 
-# Expected model feature order:
 model_features = [
 'Age','DailyRate','DistanceFromHome','Education','EnvironmentSatisfaction','Gender',
 'HourlyRate','JobInvolvement','JobLevel','JobSatisfaction','MonthlyIncome','MonthlyRate',
@@ -64,175 +83,163 @@ model_features = [
 'Status_Married','Status_Single'
 ]
 
-st.title("Employee Attrition Prediction System")
+tab1, tab2 = st.tabs(["Prediction", "Dashboard"])
 
-# Inputs
-age = st.slider("Age", 18, 60, 30)
-daily_rate = st.number_input("DailyRate", min_value=100, max_value=2000, value=800)
-distance = st.number_input("Distance From Home", 1, 50, 5)
-education = st.slider("Education Level (1-5)", 1, 5, 3)
-env_sat = st.slider("Environment Satisfaction (1-4)", 1, 4, 3)
-gender = st.selectbox("Gender", ["Male", "Female"])
-hourly_rate = st.number_input("HourlyRate", min_value=10, max_value=200, value=60)
-job_involve = st.slider("Job Involvement (1-4)", 1, 4, 3)
-job_sat = st.slider("Job Satisfaction (1-4)", 1, 4, 3)
-monthly_income = st.number_input("Monthly Income", 1000, 200000, 20000)
-monthly_rate = st.number_input("Monthly Rate", 1000, 30000, 10000)
-num_comp = st.slider("Num Companies Worked", 0, 10, 1)
-overtime = st.selectbox("OverTime", ["No", "Yes"])
-percent_hike = st.number_input("Percent Salary Hike", 10, 35, 15)
-perf = st.slider("Performance Rating (1-4)", 1, 4, 3)
-relation_sat = st.slider("Relationship Satisfaction (1-4)", 1, 4, 3)
-stock = st.slider("Stock Option Level (0-3)", 0, 3, 1)
-total_years = st.slider("Total Working Years", 0, 40, 5)
-training = st.slider("Training Times Last Year", 0, 10, 2)
-work_balance = st.slider("Work Life Balance (1-4)", 1, 4, 2)
-years_company = st.slider("Years at Company", 0, 40, 3)
-years_role = st.slider("Years in Current Role", 0, 20, 2)
-years_promo = st.slider("Years Since Last Promotion", 0, 15, 1)
-years_manager = st.slider("Years with Current Manager", 0, 17, 2)
+with tab1:
 
-department = st.selectbox("Department", 
-    ["Human Resources", "Research & Development", "Sales"])
+    st.title("Employee Attrition Prediction System")
 
-education_field = st.selectbox("Education Field",
-    ["Human Resources", "Life Sciences", "Marketing", "Medical", "Other", "Technical Degree"])
+    age = st.slider("Age", 18, 60, 30)
+    daily_rate = st.number_input("DailyRate", 100, 2000, 800)
+    distance = st.number_input("Distance From Home", 1, 50, 5)
+    education = st.slider("Education Level (1-5)", 1, 5, 3)
+    env_sat = st.slider("Environment Satisfaction (1-4)", 1, 4, 3)
+    gender = st.selectbox("Gender", ["Male", "Female"])
+    hourly_rate = st.number_input("HourlyRate", 10, 200, 60)
+    job_involve = st.slider("Job Involvement (1-4)", 1, 4, 3)
 
-business_travel = st.selectbox("Business Travel",
-    ["Non-Travel", "Travel_Frequently", "Travel_Rarely"])
+    with st.expander("What is Job Level?"):
+        st.write("""
+        | Level | Meaning | Example Roles |
+        |------:|---------|---------------|
+        | 1 | Entry-level employee | Technician, Junior Analyst |
+        | 2 | Intermediate | Sales Executive, HR Assistant |
+        | 3 | Senior / Experienced | Senior Scientist, Senior Developer |
+        | 4 | Managerial | Manager, Team Lead |
+        | 5 | Top-Level Management | Director, VP |
+        """)
 
-job_role = st.selectbox("Job Role",
-    ["Healthcare Representative","Human Resources","Laboratory Technician","Manager",
-     "Manufacturing Director","Research Director","Research Scientist",
-     "Sales Executive","Sales Representative"])
+    job_level = st.slider("Job Level (1-5)", 1, 5, 2)
+    job_sat = st.slider("Job Satisfaction (1-4)", 1, 4, 3)
+    monthly_income = st.number_input("Monthly Income", 1000, 200000, 20000)
+    monthly_rate = st.number_input("Monthly Rate", 1000, 30000, 10000)
+    num_comp = st.slider("Num Companies Worked", 0, 10, 1)
+    overtime = st.selectbox("OverTime", ["No", "Yes"])
+    percent_hike = st.number_input("Percent Salary Hike", 10, 35, 15)
+    perf = st.slider("Performance Rating (1-4)", 1, 4, 3)
+    relation_sat = st.slider("Relationship Satisfaction (1-4)", 1, 4, 3)
+    stock = st.slider("Stock Option Level (0-3)", 0, 3, 1)
+    total_years = st.slider("Total Working Years", 0, 40, 5)
+    training = st.slider("Training Times Last Year", 0, 10, 2)
+    work_balance = st.slider("Work Life Balance (1-4)", 1, 4, 2)
+    years_company = st.slider("Years at Company", 0, 40, 3)
+    years_role = st.slider("Years in Current Role", 0, 20, 2)
+    years_promo = st.slider("Years Since Last Promotion", 0, 15, 1)
+    years_manager = st.slider("Years with Current Manager", 0, 17, 2)
 
-with st.expander("What is Job Level?"):
-    st.write("""
-    | Level | Meaning | Example Roles |
-    |------:|---------|---------------|
-    | 1 | Entry-level employee | Technician, Junior Analyst |
-    | 2 | Intermediate | Sales Executive, HR Assistant |
-    | 3 | Senior / Experienced | Senior Scientist, Senior Developer |
-    | 4 | Managerial | Manager, Team Lead |
-    | 5 | Top-Level Management | Director, VP |
-    """)
+    department = st.selectbox("Department", ["Human Resources", "Research & Development", "Sales"])
 
-job_role_to_level = {
-    "Healthcare Representative": 2,
-    "Human Resources": 2,
-    "Laboratory Technician": 1,
-    "Sales Representative": 1,
-    "Sales Executive": 2,
-    "Research Scientist": 3,
-    "Manufacturing Director": 4,
-    "Manager": 4,
-    "Research Director": 5
-}
-job_level = job_role_to_level[job_role]
+    education_field = st.selectbox("Education Field",
+        ["Human Resources", "Life Sciences", "Marketing", "Medical", "Other", "Technical Degree"])
 
-st.info(f"Assigned Job Level: {job_level}")
-job_level = st.slider("Job Level (1–5)", 1, 5, job_role_to_level[job_role])
+    business_travel = st.selectbox("Business Travel",
+        ["Non-Travel", "Travel_Frequently", "Travel_Rarely"])
 
-if abs(job_level - job_role_to_level[job_role]) > 1:
-    st.warning("Selected job level does not usually match this job role.")
+    job_role = st.selectbox("Job Role",
+        ["Healthcare Representative","Human Resources","Laboratory Technician","Manager",
+         "Manufacturing Director","Research Director","Research Scientist",
+         "Sales Executive","Sales Representative"])
 
-marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
+    marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
-input_df = pd.DataFrame([{
-    "Age": age,
-    "DailyRate": daily_rate,
-    "DistanceFromHome": distance,
-    "Education": education,
-    "EnvironmentSatisfaction": env_sat,
-    "Gender": 1 if gender == "Female" else 0,
-    "HourlyRate": hourly_rate,
-    "JobInvolvement": job_involve,
-    "JobLevel": job_level,
-    "JobSatisfaction": job_sat,
-    "MonthlyIncome": monthly_income,
-    "MonthlyRate": monthly_rate,
-    "NumCompaniesWorked": num_comp,
-    "OverTime": 1 if overtime == "Yes" else 0,
-    "PercentSalaryHike": percent_hike,
-    "PerformanceRating": perf,
-    "RelationshipSatisfaction": relation_sat,
-    "StockOptionLevel": stock,
-    "TotalWorkingYears": total_years,
-    "TrainingTimesLastYear": training,
-    "WorkLifeBalance": work_balance,
-    "YearsAtCompany": years_company,
-    "YearsInCurrentRole": years_role,
-    "YearsSinceLastPromotion": years_promo,
-    "YearsWithCurrManager": years_manager
-}])
+    input_df = pd.DataFrame([{
+        "Age": age,
+        "DailyRate": daily_rate,
+        "DistanceFromHome": distance,
+        "Education": education,
+        "EnvironmentSatisfaction": env_sat,
+        "Gender": 1 if gender == "Female" else 0,
+        "HourlyRate": hourly_rate,
+        "JobInvolvement": job_involve,
+        "JobLevel": job_level,
+        "JobSatisfaction": job_sat,
+        "MonthlyIncome": monthly_income,
+        "MonthlyRate": monthly_rate,
+        "NumCompaniesWorked": num_comp,
+        "OverTime": 1 if overtime == "Yes" else 0,
+        "PercentSalaryHike": percent_hike,
+        "PerformanceRating": perf,
+        "RelationshipSatisfaction": relation_sat,
+        "StockOptionLevel": stock,
+        "TotalWorkingYears": total_years,
+        "TrainingTimesLastYear": training,
+        "WorkLifeBalance": work_balance,
+        "YearsAtCompany": years_company,
+        "YearsInCurrentRole": years_role,
+        "YearsSinceLastPromotion": years_promo,
+        "YearsWithCurrManager": years_manager
+    }])
 
+    input_df[f"Department_{department}"] = 1
+    input_df[f"Education_{education_field}"] = 1
+    input_df[f"Role_{job_role}"] = 1
+    input_df[f"Status_{marital}"] = 1
+    input_df[business_travel] = 1
 
-input_df[f"Department_{department}"] = 1
-input_df[f"Education_{education_field}"] = 1
-input_df[f"Role_{job_role}"] = 1
-input_df[f"Status_{marital}"] = 1
-input_df[business_travel] = 1
+    for col in model_features:
+        if col not in input_df.columns:
+            input_df[col] = 0
 
+    input_df = input_df[model_features]
 
-for col in model_features:
-    if col not in input_df.columns:
-        input_df[col] = 0
+    if st.button("Predict"):
+        prob = model.predict_proba(input_df)[0][1]
+
+        if prob < 0.30:
+            st.success(f"Low Risk\nProbability: {prob:.2f}")
+        elif prob < 0.55:
+            st.warning(f"Medium Risk\nProbability: {prob:.2f}")
+        else:
+            st.error(f"High Risk\nProbability: {prob:.2f}")
 
 
-input_df = input_df[model_features]
+import plotly.express as px
 
-if years_company > total_years:
-    st.warning("Years at company cannot be greater than total working years.")
+with tab2:
 
-if years_role > total_years:
-    st.warning("Years in Current Role cannot be greater than total working years.")
-    
-if years_manager > total_years:
-    st.warning("Years with Current Manager cannot be greater than total working years.")
+    st.header("HR Analytics Dashboard")
 
-if years_promo > total_years:
-    st.warning("Years Since Last Promotion cannot be greater than total working years.")
+    df.columns = df.columns.str.replace(" ", "")
 
-st.subheader("HR Risk Tolerance Settings")
+    color_scale = ["#6a11cb", "#2575fc"]
 
-risk_tolerance = st.slider(
-    "Select HR Risk Tolerance",
-    min_value=1,
-    max_value=3,
-    value=2,
-    format="%d",
-    help="1 = Conservative | 2 = Balanced | 3 = Proactive"
-)
+    col1, col2, col3 = st.columns(3)
 
-if risk_tolerance == 1:
-    low_threshold = 0.40
-    high_threshold = 0.65
-    st.caption("Conservative mode: Flags only high-risk employees")
+    total_employees = len(df)
+    attrition_count = df[df["Attrition"] == "Yes"].shape[0]
+    attrition_rate = (attrition_count / total_employees) * 100
 
-elif risk_tolerance == 2:
-    low_threshold = 0.30
-    high_threshold = 0.55
-    st.caption("Balanced mode: Standard HR monitoring")
+    with col1:
+        st.metric("Total Employees", total_employees)
 
-else:
-    low_threshold = 0.20
-    high_threshold = 0.45
-    st.caption("Proactive mode: Early attrition warning enabled")
+    with col2:
+        st.metric("Employees Left", attrition_count)
 
-# Prediction
-if st.button("Predict"):
-    prob = model.predict_proba(input_df)[0][1]
+    with col3:
+        st.metric("Attrition Rate (%)", f"{attrition_rate:.2f}%")
 
-    st.subheader("Attrition Risk Assessment")
+    colA, colB = st.columns(2)
 
-    if prob < low_threshold:
-        st.success(f"Low Attrition Risk\n\nProbability: {prob:.2f}")
-        st.write("Employee is likely to stay with the organization.")
+    with colA:
+        fig1 = px.histogram(
+            df,
+            x="Attrition",
+            color="Attrition",
+            color_discrete_sequence=color_scale,
+            title="Attrition Distribution"
+        )
+        fig1.update_layout(template="plotly_dark")
+        st.plotly_chart(fig1, use_container_width=True)
 
-    elif prob < high_threshold:
-        st.warning(f"Medium Attrition Risk\n\nProbability: {prob:.2f}")
-        st.write("Employee shows moderate risk. Monitoring is recommended.")
-
-    else:
-        st.error(f"High Attrition Risk\n\nProbability: {prob:.2f}")
-        st.write("Immediate HR intervention is recommended.")
+    with colB:
+        fig2 = px.histogram(
+            df,
+            x="Department",
+            color="Attrition",
+            barmode="group",
+            color_discrete_sequence=color_scale,
+            title="Attrition by Department"
+        )
+        fig2.update_layout(template="plotly_dark")
+        st.plotly_chart(fig2, use_container_width=True)
+   
