@@ -95,7 +95,6 @@ with tab1:
     gender = st.selectbox("Gender", ["Male", "Female"])
     hourly_rate = st.number_input("HourlyRate", 10, 200, 60)
     job_involve = st.slider("Job Involvement (1-4)", 1, 4, 3)
-    job_level = st.slider("Job Level (1-5)", 1, 5, 2)
     job_sat = st.slider("Job Satisfaction (1-4)", 1, 4, 3)
     monthly_income = st.number_input("Monthly Income", 1000, 200000, 20000)
     monthly_rate = st.number_input("Monthly Rate", 1000, 30000, 10000)
@@ -138,6 +137,7 @@ with tab1:
     job_level = job_role_level_map.get(job_role, 2)
 
     st.write(f"Suggested Job Level based on role: {job_level}")
+    job_level = st.slider("Job Level (1-5)", 1, 5, 2)
 
     marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
