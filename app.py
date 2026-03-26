@@ -134,9 +134,9 @@ with tab1:
 job_level = job_role_level_map.get(job_role, 2)
 
 st.write(f"Suggested Job Level based on role: {job_level}")
-    marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
+marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
-    st.subheader("HR Risk Tolerance Settings")
+st.subheader("HR Risk Tolerance Settings")
 
     risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
 
