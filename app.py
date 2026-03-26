@@ -114,6 +114,26 @@ with tab1:
         ["Healthcare Representative","Human Resources","Laboratory Technician","Manager",
          "Manufacturing Director","Research Director","Research Scientist",
          "Sales Executive","Sales Representative"])
+    job_role_level_map = {
+    "Laboratory Technician": 1,
+    "Sales Representative": 1,
+
+    "Healthcare Representative": 2,
+    "Human Resources": 2,
+    "Sales Executive": 2,
+
+    "Research Scientist": 3,
+    "Manufacturing Director": 3,
+
+    "Manager": 4,
+    "Research Director": 4,
+
+    # fallback (if needed)
+}
+
+job_level = job_role_level_map.get(job_role, 2)
+
+st.write(f"Suggested Job Level based on role: {job_level}")
     marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
 
     st.subheader("HR Risk Tolerance Settings")
@@ -129,7 +149,25 @@ with tab1:
     else:
         low_threshold = 0.20
         high_threshold = 0.45
+    # -------------------- VALIDATIONS --------------------
 
+    if years_company > total_years:
+        st.warning("Years at Company cannot be greater than Total Working Years")
+
+    if years_role > years_company:
+        st.warning("Years in Current Role cannot exceed Years at Company")
+
+    if years_manager > years_company:
+        st.warning("Years with Manager cannot exceed Years at Company")
+
+    if years_promo > years_company:
+        st.warning("Years Since Last Promotion cannot exceed Years at Company")
+
+    if training > total_years:
+        st.warning("Training Times Last Year seems unrealistic compared to experience")
+        
+    if training > years_company:
+        st.warning("Training Times Last Year seems unrealistic compared to experience")
     if st.button("Predict"):
 
         input_df = pd.DataFrame([{
