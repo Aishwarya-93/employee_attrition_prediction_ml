@@ -3,16 +3,14 @@ import pandas as pd
 import numpy as np
 import joblib
 import plotly.express as px
+import plotly.graph_objects as go
 
 st.markdown("""
 <style>
-
-/* Background */
 .stApp {
     background: linear-gradient(to right, #e0c3fc, #8ec5fc);
 }
 
-/* Titles */
 h1 {
     color: #4c1d95;
     text-align: center;
@@ -22,47 +20,16 @@ h2, h3 {
     color: #312e81;
 }
 
-/* FIX LABEL TEXT */
 .stSlider label,
 .stNumberInput label,
 .stSelectbox label {
     color: #1e1e2f !important;
-    font-weight: 500;
 }
 
-/* Slider value */
 .stSlider span {
     color: #1e1e2f !important;
 }
 
-/* KPI Cards */
-[data-testid="metric-container"] {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    padding: 18px;
-    border-radius: 14px;
-    color: white;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
-}
-
-/* KPI Text */
-[data-testid="stMetricLabel"] {
-    color: #e0e7ff !important;
-}
-
-[data-testid="stMetricValue"] {
-    color: white !important;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-/* Inputs */
-.stTextInput, .stNumberInput, .stSelectbox, .stSlider {
-    background-color: white;
-    border-radius: 10px;
-    padding: 6px;
-}
-
-/* Buttons */
 div.stButton > button {
     background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: white;
@@ -71,28 +38,8 @@ div.stButton > button {
     font-weight: bold;
     border: none;
 }
-
-div.stButton > button:hover {
-    opacity: 0.9;
-}
-/* Dashboard Header */
-h2 {
-    color: black !important;
-}
-
-/* KPI Titles */
-[data-testid="stMetricLabel"] {
-    color: black !important;
-}
-
-/* KPI Values */
-[data-testid="stMetricValue"] {
-    color: black !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
-
 
 model = joblib.load("attrition_model.pkl")
 df = pd.read_csv("employee_attrition_dataset.csv")
@@ -212,79 +159,33 @@ with tab1:
         input_df = input_df[model_features]
 
         prob = model.predict_proba(input_df)[0][1]
+        fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=prob * 100,
+            title={'text': "Attrition Risk (%)"},
+            gauge={
+                'axis': {'range': [0, 100]},
+                'bar': {'color': "#6a11cb"},
+                'steps': [
+                    {'range': [0, low_threshold*100], 'color': "#dcfce7"},
+                    {'range': [low_threshold*100, high_threshold*100], 'color': "#fef9c3"},
+                    {'range': [high_threshold*100, 100], 'color': "#fee2e2"}
+                ],
+            }
+        ))
+
+        fig.update_layout(height=300)
+
+        st.plotly_chart(fig, use_container_width=True)
 
         if prob < low_threshold:
-            st.markdown(f"""
-            <div style="background:#dcfce7;padding:15px;border-radius:10px;border-left:6px solid #22c55e;color:#14532d;font-weight:600;">
-            Low Risk Probability: {prob:.2f}
-            </div>
-            """, unsafe_allow_html=True)
-
+            st.markdown(f"<div style='background:#dcfce7;padding:15px;border-radius:10px;border-left:6px solid #22c55e;color:#14532d;font-weight:600;'>Low Risk Probability: {prob:.2f}</div>", unsafe_allow_html=True)
         elif prob < high_threshold:
-            st.markdown(f"""
-            <div style="background:#fef9c3;padding:15px;border-radius:10px;border-left:6px solid #eab308;color:#854d0e;font-weight:600;">
-            Medium Risk Probability: {prob:.2f}
-            </div>
-            """, unsafe_allow_html=True)
-
+            st.markdown(f"<div style='background:#fef9c3;padding:15px;border-radius:10px;border-left:6px solid #eab308;color:#854d0e;font-weight:600;'>Medium Risk Probability: {prob:.2f}</div>", unsafe_allow_html=True)
         else:
-            st.markdown(f"""
-            <div style="background:#fee2e2;padding:15px;border-radius:10px;border-left:6px solid #ef4444;color:#7f1d1d;font-weight:600;">
-            High Risk Probability: {prob:.2f}
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f"<div style='background:#fee2e2;padding:15px;border-radius:10px;border-left:6px solid #ef4444;color:#7f1d1d;font-weight:600;'>High Risk Probability: {prob:.2f}</div>", unsafe_allow_html=True)
 
-    input_df = pd.DataFrame([{
-        "Age": age,
-        "DailyRate": daily_rate,
-        "DistanceFromHome": distance,
-        "Education": education,
-        "EnvironmentSatisfaction": env_sat,
-        "Gender": 1 if gender == "Female" else 0,
-        "HourlyRate": hourly_rate,
-        "JobInvolvement": job_involve,
-        "JobLevel": job_level,
-        "JobSatisfaction": job_sat,
-        "MonthlyIncome": monthly_income,
-        "MonthlyRate": monthly_rate,
-        "NumCompaniesWorked": num_comp,
-        "OverTime": 1 if overtime == "Yes" else 0,
-        "PercentSalaryHike": percent_hike,
-        "PerformanceRating": perf,
-        "RelationshipSatisfaction": relation_sat,
-        "StockOptionLevel": stock,
-        "TotalWorkingYears": total_years,
-        "TrainingTimesLastYear": training,
-        "WorkLifeBalance": work_balance,
-        "YearsAtCompany": years_company,
-        "YearsInCurrentRole": years_role,
-        "YearsSinceLastPromotion": years_promo,
-        "YearsWithCurrManager": years_manager
-    }])
-
-    input_df[f"Department_{department}"] = 1
-    input_df[f"Education_{education_field}"] = 1
-    input_df[f"Role_{job_role}"] = 1
-    input_df[f"Status_{marital}"] = 1
-    input_df[business_travel] = 1
-
-    for col in model_features:
-        if col not in input_df.columns:
-            input_df[col] = 0
-
-    input_df = input_df[model_features]
-
-    if st.button("Predict"):
-        prob = model.predict_proba(input_df)[0][1]
-
-        if prob < low_threshold:
-            st.success(f"Low Risk\nProbability: {prob:.2f}")
-        elif prob < high_threshold:
-            st.warning(f"Medium Risk\nProbability: {prob:.2f}")
-        else:
-            st.error(f"High Risk\nProbability: {prob:.2f}")
-
-
+# -------------------- TAB 2 --------------------
 with tab2:
 
     st.header("HR Analytics Dashboard")
