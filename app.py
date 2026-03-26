@@ -89,32 +89,35 @@ h2 {
 [data-testid="stMetricValue"] {
     color: black !important;
 }
-[data-testid="stSuccess"] p,
-[data-testid="stWarning"] p,
-[data-testid="stError"] p {
-    font-size: 16px;
-}
-/* Success box (Low Risk) */
+/* Success box */
 [data-testid="stSuccess"] {
     background-color: #dcfce7 !important;
-    color: #14532d !important;   /* darker green */
-    font-weight: 600;
 }
 
-/* Warning box (Medium Risk) */
+[data-testid="stSuccess"] p {
+    color: #14532d !important;
+    font-weight: 700;
+}
+
+/* Warning box */
 [data-testid="stWarning"] {
     background-color: #fef9c3 !important;
-    color: #854d0e !important;
-    font-weight: 600;
 }
 
-/* Error box (High Risk) */
+[data-testid="stWarning"] p {
+    color: #854d0e !important;
+    font-weight: 700;
+}
+
+/* Error box */
 [data-testid="stError"] {
     background-color: #fee2e2 !important;
-    color: #7f1d1d !important;
-    font-weight: 600;
 }
 
+[data-testid="stError"] p {
+    color: #7f1d1d !important;
+    font-weight: 700;
+}
 </style>
 """, unsafe_allow_html=True)
 
