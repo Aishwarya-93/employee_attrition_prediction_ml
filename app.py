@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-import matplotlib.pyplot as plt
-import seaborn as sns
+import plotly.express as px
+
 st.markdown("""
 <style>
 
-/* Light Gradient Background */
+/* Background */
 .stApp {
     background: linear-gradient(to right, #e0c3fc, #8ec5fc);
 }
@@ -22,11 +22,13 @@ h2, h3 {
     color: #312e81;
 }
 
+/* FIX LABEL TEXT */
 .stSlider label,
 .stNumberInput label,
 .stSelectbox label {
     color: #1e1e2f !important;
     font-weight: 500;
+}
 
 /* Slider value */
 .stSlider span {
@@ -44,11 +46,11 @@ h2, h3 {
 
 /* KPI Text */
 [data-testid="stMetricLabel"] {
-    color: #030005 !important;
+    color: #e0e7ff !important;
 }
 
 [data-testid="stMetricValue"] {
-    color: black !important;
+    color: white !important;
     font-size: 28px;
     font-weight: bold;
 }
@@ -76,6 +78,7 @@ div.stButton > button:hover {
 
 </style>
 """, unsafe_allow_html=True)
+
 
 model = joblib.load("attrition_model.pkl")
 df = pd.read_csv("employee_attrition_dataset.csv")
@@ -108,18 +111,6 @@ with tab1:
     gender = st.selectbox("Gender", ["Male", "Female"])
     hourly_rate = st.number_input("HourlyRate", 10, 200, 60)
     job_involve = st.slider("Job Involvement (1-4)", 1, 4, 3)
-
-    with st.expander("What is Job Level?"):
-        st.write("""
-        | Level | Meaning | Example Roles |
-        |------:|---------|---------------|
-        | 1 | Entry-level employee | Technician, Junior Analyst |
-        | 2 | Intermediate | Sales Executive, HR Assistant |
-        | 3 | Senior / Experienced | Senior Scientist, Senior Developer |
-        | 4 | Managerial | Manager, Team Lead |
-        | 5 | Top-Level Management | Director, VP |
-        """)
-
     job_level = st.slider("Job Level (1-5)", 1, 5, 2)
     job_sat = st.slider("Job Satisfaction (1-4)", 1, 4, 3)
     monthly_income = st.number_input("Monthly Income", 1000, 200000, 20000)
@@ -139,19 +130,16 @@ with tab1:
     years_manager = st.slider("Years with Current Manager", 0, 17, 2)
 
     department = st.selectbox("Department", ["Human Resources", "Research & Development", "Sales"])
-
     education_field = st.selectbox("Education Field",
         ["Human Resources", "Life Sciences", "Marketing", "Medical", "Other", "Technical Degree"])
-
     business_travel = st.selectbox("Business Travel",
         ["Non-Travel", "Travel_Frequently", "Travel_Rarely"])
-
     job_role = st.selectbox("Job Role",
         ["Healthcare Representative","Human Resources","Laboratory Technician","Manager",
          "Manufacturing Director","Research Director","Research Scientist",
          "Sales Executive","Sales Representative"])
-
     marital = st.selectbox("Marital Status", ["Divorced", "Married", "Single"])
+
     st.subheader("HR Risk Tolerance Settings")
 
     risk_tolerance = st.slider("Select HR Risk Tolerance", 1, 3, 2)
@@ -165,7 +153,7 @@ with tab1:
     else:
         low_threshold = 0.20
         high_threshold = 0.45
-        
+
     input_df = pd.DataFrame([{
         "Age": age,
         "DailyRate": daily_rate,
@@ -217,8 +205,6 @@ with tab1:
             st.error(f"High Risk\nProbability: {prob:.2f}")
 
 
-import plotly.express as px
-
 with tab2:
 
     st.header("HR Analytics Dashboard")
@@ -233,39 +219,25 @@ with tab2:
     attrition_count = df[df["Attrition"] == "Yes"].shape[0]
     attrition_rate = (attrition_count / total_employees) * 100
 
-    with col1:
-        st.metric("Total Employees", total_employees)
-
-    with col2:
-        st.metric("Employees Left", attrition_count)
-
-    with col3:
-        st.metric("Attrition Rate (%)", f"{attrition_rate:.2f}%")
+    col1.metric("Total Employees", total_employees)
+    col2.metric("Employees Left", attrition_count)
+    col3.metric("Attrition Rate (%)", f"{attrition_rate:.2f}%")
 
     colA, colB = st.columns(2)
 
     with colA:
-        fig1 = px.histogram(
-            df,
-            x="Attrition",
-            color="Attrition",
-            color_discrete_sequence=color_scale,
-            title="Attrition Distribution"
-        )
-        fig1.update_layout(template="plotly_dark")
+        fig1 = px.histogram(df, x="Attrition", color="Attrition",
+                            color_discrete_sequence=color_scale,
+                            title="Attrition Distribution")
+        fig1.update_layout(template="plotly_white")
         fig1.update_yaxes(title="Employee Count")
         st.plotly_chart(fig1, use_container_width=True)
 
     with colB:
-        fig2 = px.histogram(
-            df,
-            x="Department",
-            color="Attrition",
-            barmode="group",
-            color_discrete_sequence=color_scale,
-            title="Attrition by Department"
-        )
-        fig2.update_layout(template="plotly_dark")
+        fig2 = px.histogram(df, x="Department", color="Attrition",
+                            barmode="group",
+                            color_discrete_sequence=color_scale,
+                            title="Attrition by Department")
+        fig2.update_layout(template="plotly_white")
         fig2.update_yaxes(title="Employee Count")
         st.plotly_chart(fig2, use_container_width=True)
-   
