@@ -20,6 +20,20 @@ h2, h3 {
     color: #312e81;
 }
 
+h2 {
+    color: black !important;
+}
+
+/* KPI Titles */
+[data-testid="stMetricLabel"] {
+    color: black !important;
+}
+
+/* KPI Values */
+[data-testid="stMetricValue"] {
+    color: black !important;
+}
+
 .stSlider label,
 .stNumberInput label,
 .stSelectbox label {
