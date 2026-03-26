@@ -67,7 +67,7 @@ div.stButton > button:hover {
 """, unsafe_allow_html=True)
 
 model = joblib.load("attrition_model.pkl")
-df = pd.read_csv("employee_attrition_ml/employee_attrition_dataset.csv")
+df = pd.read_csv("employee_attrition_dataset.csv")
 
 model_features = [
 'Age','DailyRate','DistanceFromHome','Education','EnvironmentSatisfaction','Gender',
