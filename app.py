@@ -89,6 +89,11 @@ h2 {
 [data-testid="stMetricValue"] {
     color: black !important;
 }
+[data-testid="stSuccess"] p,
+[data-testid="stWarning"] p,
+[data-testid="stError"] p {
+    font-size: 16px;
+}
 /* Success box (Low Risk) */
 [data-testid="stSuccess"] {
     background-color: #dcfce7 !important;
