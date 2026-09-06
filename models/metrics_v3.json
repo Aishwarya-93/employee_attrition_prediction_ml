@@ -1,0 +1,649 @@
+{
+  "trained_at": "2026-09-06 17:00:09",
+  "n_rows": 1470,
+  "n_train": 1176,
+  "n_test": 294,
+  "feature_engineering_ablation": [
+    {
+      "feature_set": "base_49",
+      "model": "Logistic Regression",
+      "accuracy_mean": 0.7508113956004328,
+      "accuracy_std": 0.023734227726205013,
+      "precision_mean": 0.36563663816086295,
+      "precision_std": 0.031063769552473044,
+      "recall_mean": 0.7263157894736841,
+      "recall_std": 0.0717799036683466,
+      "f1_mean": 0.4851312122921101,
+      "f1_std": 0.03446878769909071,
+      "roc_auc_mean": 0.8227149939145665,
+      "roc_auc_std": 0.031868823885227014
+    },
+    {
+      "feature_set": "base_49",
+      "model": "XGBoost",
+      "accuracy_mean": 0.8741471330688786,
+      "accuracy_std": 0.011631825574261697,
+      "precision_mean": 0.7543589743589744,
+      "precision_std": 0.05959318583111366,
+      "recall_mean": 0.33157894736842103,
+      "recall_std": 0.10340464581257104,
+      "f1_mean": 0.45047153864799017,
+      "f1_std": 0.09963711155506288,
+      "roc_auc_mean": 0.7997204208799186,
+      "roc_auc_std": 0.045204662499608896
+    },
+    {
+      "feature_set": "engineered",
+      "model": "Logistic Regression",
+      "accuracy_mean": 0.7644248106743599,
+      "accuracy_std": 0.02089682274665896,
+      "precision_mean": 0.38130253055642294,
+      "precision_std": 0.023864335506994797,
+      "recall_mean": 0.7210526315789474,
+      "recall_std": 0.07912261251775214,
+      "f1_mean": 0.49675173227127123,
+      "f1_std": 0.024825257063306357,
+      "roc_auc_mean": 0.8259768402701878,
+      "roc_auc_std": 0.03247330730127414
+    },
+    {
+      "feature_set": "engineered",
+      "model": "XGBoost",
+      "accuracy_mean": 0.8750018031013344,
+      "accuracy_std": 0.0073852494997942875,
+      "precision_mean": 0.7402097902097902,
+      "precision_std": 0.06070952259076483,
+      "recall_mean": 0.35789473684210527,
+      "recall_std": 0.05907880084379907,
+      "f1_mean": 0.47768892503237853,
+      "f1_std": 0.05246579373396582,
+      "roc_auc_mean": 0.805927832964969,
+      "roc_auc_std": 0.018692114342283336
+    }
+  ],
+  "use_engineered_features": true,
+  "feature_version": "v2_engineered",
+  "imbalance_comparison": [
+    {
+      "model": "Logistic Regression",
+      "balancing": "none",
+      "accuracy_mean": 0.8903065272268302,
+      "accuracy_std": 0.019478547780969677,
+      "precision_mean": 0.7430038599393438,
+      "precision_std": 0.08563425316208596,
+      "recall_mean": 0.4842105263157895,
+      "recall_std": 0.10340464581257107,
+      "f1_mean": 0.582720563681293,
+      "f1_std": 0.09982835742234951,
+      "roc_auc_mean": 0.8403600525695103,
+      "roc_auc_std": 0.026321936227093858
+    },
+    {
+      "model": "Logistic Regression",
+      "balancing": "class_weight",
+      "accuracy_mean": 0.7644248106743599,
+      "accuracy_std": 0.02089682274665896,
+      "precision_mean": 0.38130253055642294,
+      "precision_std": 0.023864335506994797,
+      "recall_mean": 0.7210526315789474,
+      "recall_std": 0.07912261251775214,
+      "f1_mean": 0.49675173227127123,
+      "f1_std": 0.024825257063306357,
+      "roc_auc_mean": 0.8259768402701878,
+      "roc_auc_std": 0.03247330730127414
+    },
+    {
+      "model": "Logistic Regression",
+      "balancing": "smote",
+      "accuracy_mean": 0.8886007933645871,
+      "accuracy_std": 0.0160424081029059,
+      "precision_mean": 0.7410486722991336,
+      "precision_std": 0.08107701843678125,
+      "recall_mean": 0.4789473684210527,
+      "recall_std": 0.08712076503814133,
+      "f1_mean": 0.5779218375752119,
+      "f1_std": 0.08023804845326488,
+      "roc_auc_mean": 0.8376610076182611,
+      "roc_auc_std": 0.02472780951340053
+    },
+    {
+      "model": "Random Forest",
+      "balancing": "none",
+      "accuracy_mean": 0.8579985575189326,
+      "accuracy_std": 0.008667285864894717,
+      "precision_mean": 0.7849572649572649,
+      "precision_std": 0.14525449288746944,
+      "recall_mean": 0.19473684210526315,
+      "recall_std": 0.09055079228465923,
+      "f1_mean": 0.29490702866821666,
+      "f1_std": 0.11002197744395949,
+      "roc_auc_mean": 0.7941164921995807,
+      "roc_auc_std": 0.03252681968370803
+    },
+    {
+      "model": "Random Forest",
+      "balancing": "class_weight",
+      "accuracy_mean": 0.859700685178507,
+      "accuracy_std": 0.008808484978798317,
+      "precision_mean": 0.861111111111111,
+      "precision_std": 0.1337954953199144,
+      "recall_mean": 0.1631578947368421,
+      "recall_std": 0.060925457383106445,
+      "f1_mean": 0.2679392576517642,
+      "f1_std": 0.08694378923815348,
+      "roc_auc_mean": 0.7849268128789902,
+      "roc_auc_std": 0.04231755391892589
+    },
+    {
+      "model": "Random Forest",
+      "balancing": "smote",
+      "accuracy_mean": 0.8537360259646591,
+      "accuracy_std": 0.016327029912679217,
+      "precision_mean": 0.5829004329004329,
+      "precision_std": 0.11346897587269435,
+      "recall_mean": 0.32105263157894737,
+      "recall_std": 0.10041465278073111,
+      "f1_mean": 0.4081898539183289,
+      "f1_std": 0.10017361064625842,
+      "roc_auc_mean": 0.7817060533197322,
+      "roc_auc_std": 0.033787920681156075
+    },
+    {
+      "model": "XGBoost",
+      "balancing": "none",
+      "accuracy_mean": 0.8750018031013344,
+      "accuracy_std": 0.0073852494997942875,
+      "precision_mean": 0.7402097902097902,
+      "precision_std": 0.06070952259076483,
+      "recall_mean": 0.35789473684210527,
+      "recall_std": 0.05907880084379907,
+      "f1_mean": 0.47768892503237853,
+      "f1_std": 0.05246579373396582,
+      "roc_auc_mean": 0.805927832964969,
+      "roc_auc_std": 0.018692114342283336
+    },
+    {
+      "model": "XGBoost",
+      "balancing": "class_weight",
+      "accuracy_mean": 0.8732996754417599,
+      "accuracy_std": 0.0031627528176630384,
+      "precision_mean": 0.6773422812403321,
+      "precision_std": 0.033743742819504714,
+      "recall_mean": 0.42105263157894746,
+      "recall_std": 0.057655006053175376,
+      "f1_mean": 0.5154364587608897,
+      "f1_std": 0.03687881844416989,
+      "roc_auc_mean": 0.7997015303988321,
+      "roc_auc_std": 0.014891426782672567
+    },
+    {
+      "model": "XGBoost",
+      "balancing": "smote",
+      "accuracy_mean": 0.8656364947710061,
+      "accuracy_std": 0.011072183902103313,
+      "precision_mean": 0.6417278373800113,
+      "precision_std": 0.05462591699122084,
+      "recall_mean": 0.37894736842105264,
+      "recall_std": 0.04275809686650505,
+      "f1_mean": 0.4762794324588372,
+      "f1_std": 0.04810529893340431,
+      "roc_auc_mean": 0.8062114600452832,
+      "roc_auc_std": 0.009550753122300781
+    },
+    {
+      "model": "CatBoost",
+      "balancing": "none",
+      "accuracy_mean": 0.875849260728453,
+      "accuracy_std": 0.007814330813589537,
+      "precision_mean": 0.8698181818181817,
+      "precision_std": 0.1364755904067079,
+      "recall_mean": 0.3,
+      "recall_std": 0.07735230766683719,
+      "f1_mean": 0.4320082146065974,
+      "f1_std": 0.06882813819690593,
+      "roc_auc_mean": 0.8281213146695381,
+      "roc_auc_std": 0.02772903645663161
+    },
+    {
+      "model": "CatBoost",
+      "balancing": "class_weight",
+      "accuracy_mean": 0.867316985214569,
+      "accuracy_std": 0.019630438341131422,
+      "precision_mean": 0.632836803820312,
+      "precision_std": 0.10377481356230221,
+      "recall_mean": 0.4578947368421053,
+      "recall_std": 0.04880851839734581,
+      "f1_mean": 0.5282598267085666,
+      "f1_std": 0.057127377813646796,
+      "roc_auc_mean": 0.8195274950952216,
+      "roc_auc_std": 0.032785759564129026
+    },
+    {
+      "model": "CatBoost",
+      "balancing": "smote",
+      "accuracy_mean": 0.8707356653443924,
+      "accuracy_std": 0.01744041784676432,
+      "precision_mean": 0.6917734204793029,
+      "precision_std": 0.12143772682523526,
+      "recall_mean": 0.3736842105263158,
+      "recall_std": 0.07330730672202168,
+      "f1_mean": 0.48081363081363077,
+      "f1_std": 0.07872249655148601,
+      "roc_auc_mean": 0.8051977158709727,
+      "roc_auc_std": 0.02468663384204064
+    }
+  ],
+  "best_balancing_per_model": {
+    "Logistic Regression": "none",
+    "Random Forest": "smote",
+    "XGBoost": "class_weight",
+    "CatBoost": "class_weight"
+  },
+  "tuning_summary": {
+    "Logistic Regression": {
+      "balancing": "none",
+      "best_params": {
+        "solver": "liblinear",
+        "penalty": "l2",
+        "C": 3
+      },
+      "best_cv_f1": 0.5903678768094699
+    },
+    "Random Forest": {
+      "balancing": "smote",
+      "best_params": {
+        "n_estimators": 300,
+        "min_samples_split": 6,
+        "min_samples_leaf": 2,
+        "max_features": "log2",
+        "max_depth": 6
+      },
+      "best_cv_f1": 0.4781449275362319
+    },
+    "XGBoost": {
+      "balancing": "class_weight",
+      "best_params": {
+        "subsample": 0.7,
+        "reg_lambda": 5.0,
+        "n_estimators": 500,
+        "min_child_weight": 1,
+        "max_depth": 5,
+        "learning_rate": 0.01,
+        "colsample_bytree": 1.0
+      },
+      "best_cv_f1": 0.5710835188695358
+    },
+    "CatBoost": {
+      "balancing": "class_weight",
+      "best_params": {
+        "subsample": 0.7,
+        "learning_rate": 0.03,
+        "l2_leaf_reg": 5,
+        "iterations": 400,
+        "depth": 5
+      },
+      "best_cv_f1": 0.5713865736253797
+    }
+  },
+  "stability_cv_mean_std": [
+    {
+      "model": "Logistic Regression",
+      "accuracy_mean": 0.8911539848539487,
+      "accuracy_std": 0.017987078099021465,
+      "precision_mean": 0.7444446714612619,
+      "precision_std": 0.08100572457144291,
+      "recall_mean": 0.4947368421052632,
+      "recall_std": 0.09902572485382516,
+      "f1_mean": 0.5903678768094699,
+      "f1_std": 0.09049951760856695,
+      "roc_auc_mean": 0.8377449353270887,
+      "roc_auc_std": 0.028069555649461453
+    },
+    {
+      "model": "Random Forest",
+      "accuracy_mean": 0.8486080057699242,
+      "accuracy_std": 0.025043431191908386,
+      "precision_mean": 0.5434009949228166,
+      "precision_std": 0.11205050070985398,
+      "recall_mean": 0.43157894736842106,
+      "recall_std": 0.08900807644888296,
+      "f1_mean": 0.4781449275362319,
+      "f1_std": 0.09136564849159404,
+      "roc_auc_mean": 0.7803350091888698,
+      "roc_auc_std": 0.03705313011310604
+    },
+    {
+      "model": "XGBoost",
+      "accuracy_mean": 0.8732816444284168,
+      "accuracy_std": 0.01170420507021424,
+      "precision_mean": 0.6348708762501867,
+      "precision_std": 0.054156382331066504,
+      "recall_mean": 0.5210526315789473,
+      "recall_std": 0.02578410255561242,
+      "f1_mean": 0.5710835188695358,
+      "f1_std": 0.028505566451057566,
+      "roc_auc_mean": 0.8197714521652539,
+      "roc_auc_std": 0.029241203002085565
+    },
+    {
+      "model": "CatBoost",
+      "accuracy_mean": 0.8732744320230796,
+      "accuracy_std": 0.01904301885750188,
+      "precision_mean": 0.6402791907213814,
+      "precision_std": 0.08562472680901045,
+      "recall_mean": 0.5210526315789474,
+      "recall_std": 0.05102820902543507,
+      "f1_mean": 0.5713865736253797,
+      "f1_std": 0.05136617979969645,
+      "roc_auc_mean": 0.8226442895424995,
+      "roc_auc_std": 0.03288885175521406
+    }
+  ],
+  "oof_model_selection": [
+    {
+      "model": "Logistic Regression",
+      "best_threshold": 0.4,
+      "oof_precision": 0.6686746987951807,
+      "oof_recall": 0.5842105263157895,
+      "oof_f1": 0.6235955056179775,
+      "oof_roc_auc": 0.8350752642254724,
+      "oof_pr_auc": 0.6579218721115625,
+      "cv_f1_mean": 0.5903678768094699,
+      "cv_f1_std": 0.09049951760856695
+    },
+    {
+      "model": "Random Forest",
+      "best_threshold": 0.45,
+      "oof_precision": 0.470873786407767,
+      "oof_recall": 0.5105263157894737,
+      "oof_f1": 0.4898989898989899,
+      "oof_roc_auc": 0.774495569552685,
+      "oof_pr_auc": 0.5102836598753806,
+      "cv_f1_mean": 0.4781449275362319,
+      "cv_f1_std": 0.09136564849159404
+    },
+    {
+      "model": "XGBoost",
+      "best_threshold": 0.45,
+      "oof_precision": 0.5641025641025641,
+      "oof_recall": 0.5789473684210527,
+      "oof_f1": 0.5714285714285714,
+      "oof_roc_auc": 0.8186719333831537,
+      "oof_pr_auc": 0.6042785543196043,
+      "cv_f1_mean": 0.5710835188695358,
+      "cv_f1_std": 0.028505566451057566
+    },
+    {
+      "model": "CatBoost",
+      "best_threshold": 0.45,
+      "oof_precision": 0.5898876404494382,
+      "oof_recall": 0.5526315789473685,
+      "oof_f1": 0.5706521739130435,
+      "oof_roc_auc": 0.8209405359239884,
+      "oof_pr_auc": 0.6197531771057516,
+      "cv_f1_mean": 0.5713865736253797,
+      "cv_f1_std": 0.05136617979969645
+    }
+  ],
+  "best_model": "Logistic Regression",
+  "operating_points": {
+    "high_recall": {
+      "threshold": 0.2,
+      "precision": 0.45695364238410596,
+      "recall": 0.7263157894736842,
+      "f1": 0.5609756097560976
+    },
+    "balanced": {
+      "threshold": 0.4,
+      "precision": 0.6909090909090909,
+      "recall": 0.6,
+      "f1": 0.6422535211267606
+    },
+    "high_precision": {
+      "threshold": 0.7,
+      "precision": 0.9538461538461539,
+      "recall": 0.3263157894736842,
+      "f1": 0.48627450980392156
+    }
+  },
+  "chosen_threshold": 0.4,
+  "calibration": {
+    "brier_raw": 0.08331209711386732,
+    "brier_calibrated": 0.08555279320249783,
+    "roc_auc_raw": 0.8499519590050175,
+    "roc_auc_calibrated": 0.8523273193124798,
+    "best_f1_raw": 0.6422535211267606,
+    "best_f1_calibrated": 0.6368715083798883,
+    "use_calibration": false
+  },
+  "feature_selection": {
+    "n_all_features": 58,
+    "n_selected_features": 36,
+    "use_feature_selection": true,
+    "selected_features": [
+      "MonthlyIncome",
+      "ExternalExperienceRatio",
+      "OverTime",
+      "Role_Research Director",
+      "NumCompaniesWorked",
+      "CompanyTenureRatio",
+      "JobLevel",
+      "YearsAtCompany",
+      "RoleTenureRatio",
+      "Role_Human Resources",
+      "SatisfactionIndex",
+      "DistanceFromHome",
+      "Department_Human Resources",
+      "Non-Travel",
+      "YearsInCurrentRole",
+      "YearsSinceLastPromotion",
+      "Role_Sales Representative",
+      "Travel_Frequently",
+      "Role_Sales Executive",
+      "Age",
+      "Role_Laboratory Technician",
+      "EnvironmentSatisfaction",
+      "Role_Healthcare Representative",
+      "IncomePerJobLevel",
+      "StockOptionLevel",
+      "JobInvolvement",
+      "Status_Single",
+      "Role_Manager",
+      "Role_Manufacturing Director",
+      "JobSatisfaction",
+      "Education_Technical Degree",
+      "TrainingTimesLastYear",
+      "Role_Research Scientist",
+      "Department_Research & Development",
+      "ManagerTenureRatio",
+      "WorkLifeBalance"
+    ]
+  },
+  "final_test_metrics_at_chosen_threshold": {
+    "threshold": 0.4,
+    "accuracy": 0.8435374149659864,
+    "precision": 0.5128205128205128,
+    "recall": 0.425531914893617,
+    "f1": 0.46511627906976744,
+    "roc_auc": 0.8146265828236713,
+    "pr_auc": 0.5258908509814267,
+    "confusion_matrix": [
+      [
+        228,
+        19
+      ],
+      [
+        27,
+        20
+      ]
+    ]
+  },
+  "final_test_metrics_at_0.5": {
+    "threshold": 0.5,
+    "accuracy": 0.8571428571428571,
+    "precision": 0.5925925925925926,
+    "recall": 0.3404255319148936,
+    "f1": 0.43243243243243246,
+    "roc_auc": 0.8146265828236713,
+    "pr_auc": 0.5258908509814267,
+    "confusion_matrix": [
+      [
+        236,
+        11
+      ],
+      [
+        31,
+        16
+      ]
+    ]
+  },
+  "test_f1_bootstrap_95ci": [
+    0.32779713114754094,
+    0.5918556311413454
+  ],
+  "v2_vs_v3_same_test_set": {
+    "attrition_model_v2 (its own threshold=0.35)": {
+      "threshold": 0.35,
+      "accuracy": 0.8401360544217688,
+      "precision": 0.5,
+      "recall": 0.44680851063829785,
+      "f1": 0.47191011235955055,
+      "roc_auc": 0.8080799379791542,
+      "pr_auc": 0.5715439251503638,
+      "confusion_matrix": [
+        [
+          226,
+          21
+        ],
+        [
+          26,
+          21
+        ]
+      ]
+    },
+    "Logistic Regression v3 (threshold=0.4)": {
+      "threshold": 0.4,
+      "accuracy": 0.8435374149659864,
+      "precision": 0.5128205128205128,
+      "recall": 0.425531914893617,
+      "f1": 0.46511627906976744,
+      "roc_auc": 0.8146265828236713,
+      "pr_auc": 0.5258908509814267,
+      "confusion_matrix": [
+        [
+          228,
+          19
+        ],
+        [
+          27,
+          20
+        ]
+      ]
+    }
+  },
+  "v3_meaningfully_better_than_v2": false,
+  "global_shap_top10": {
+    "OverTime": 0.09288255087395,
+    "MonthlyIncome": 0.0917339076602503,
+    "ExternalExperienceRatio": 0.08369785307089946,
+    "JobLevel": 0.055735740885651947,
+    "NumCompaniesWorked": 0.05217584171076553,
+    "CompanyTenureRatio": 0.052061347971641726,
+    "YearsAtCompany": 0.05033709007012862,
+    "SatisfactionIndex": 0.0467777206996047,
+    "Travel_Frequently": 0.03690814127660892,
+    "RoleTenureRatio": 0.03625183630245175
+  },
+  "metadata": {
+    "model_type": "Logistic Regression",
+    "balancing": "none",
+    "preprocessing_version": "src/preprocessing.py (unchanged)",
+    "feature_version": "v2_engineered",
+    "feature_list": [
+      "MonthlyIncome",
+      "ExternalExperienceRatio",
+      "OverTime",
+      "Role_Research Director",
+      "NumCompaniesWorked",
+      "CompanyTenureRatio",
+      "JobLevel",
+      "YearsAtCompany",
+      "RoleTenureRatio",
+      "Role_Human Resources",
+      "SatisfactionIndex",
+      "DistanceFromHome",
+      "Department_Human Resources",
+      "Non-Travel",
+      "YearsInCurrentRole",
+      "YearsSinceLastPromotion",
+      "Role_Sales Representative",
+      "Travel_Frequently",
+      "Role_Sales Executive",
+      "Age",
+      "Role_Laboratory Technician",
+      "EnvironmentSatisfaction",
+      "Role_Healthcare Representative",
+      "IncomePerJobLevel",
+      "StockOptionLevel",
+      "JobInvolvement",
+      "Status_Single",
+      "Role_Manager",
+      "Role_Manufacturing Director",
+      "JobSatisfaction",
+      "Education_Technical Degree",
+      "TrainingTimesLastYear",
+      "Role_Research Scientist",
+      "Department_Research & Development",
+      "ManagerTenureRatio",
+      "WorkLifeBalance"
+    ],
+    "n_features": 36,
+    "calibrated": false,
+    "threshold": 0.4,
+    "operating_points": {
+      "high_recall": {
+        "threshold": 0.2,
+        "precision": 0.45695364238410596,
+        "recall": 0.7263157894736842,
+        "f1": 0.5609756097560976
+      },
+      "balanced": {
+        "threshold": 0.4,
+        "precision": 0.6909090909090909,
+        "recall": 0.6,
+        "f1": 0.6422535211267606
+      },
+      "high_precision": {
+        "threshold": 0.7,
+        "precision": 0.9538461538461539,
+        "recall": 0.3263157894736842,
+        "f1": 0.48627450980392156
+      }
+    },
+    "training_seed": 42,
+    "trained_at": "2026-09-06 17:00:09",
+    "test_metrics": {
+      "threshold": 0.4,
+      "accuracy": 0.8435374149659864,
+      "precision": 0.5128205128205128,
+      "recall": 0.425531914893617,
+      "f1": 0.46511627906976744,
+      "roc_auc": 0.8146265828236713,
+      "pr_auc": 0.5258908509814267,
+      "confusion_matrix": [
+        [
+          228,
+          19
+        ],
+        [
+          27,
+          20
+        ]
+      ]
+    },
+    "test_f1_bootstrap_95ci": [
+      0.32779713114754094,
+      0.5918556311413454
+    ]
+  }
+}

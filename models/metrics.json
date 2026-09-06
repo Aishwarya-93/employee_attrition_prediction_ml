@@ -1,0 +1,354 @@
+{
+  "trained_at": "2026-09-06 16:10:40",
+  "dataset": "IBM Dataset.csv",
+  "n_rows": 1470,
+  "n_train": 1176,
+  "n_test": 294,
+  "test_attrition_rate": 0.1598639455782313,
+  "smote_comparison": [
+    {
+      "model": "Logistic Regression",
+      "smote": false,
+      "accuracy": 0.8869094843130183,
+      "precision": 0.7462962962962962,
+      "recall": 0.4421052631578948,
+      "f1": 0.5516166427401132,
+      "roc_auc": 0.8369930941798428
+    },
+    {
+      "model": "Random Forest",
+      "smote": false,
+      "accuracy": 0.8639487919221059,
+      "precision": 0.8611904761904763,
+      "recall": 0.19473684210526315,
+      "f1": 0.30951357237302635,
+      "roc_auc": 0.7926283270859814
+    },
+    {
+      "model": "XGBoost",
+      "smote": false,
+      "accuracy": 0.8741471330688786,
+      "precision": 0.7543589743589744,
+      "recall": 0.33157894736842103,
+      "f1": 0.45047153864799017,
+      "roc_auc": 0.7997204208799186
+    },
+    {
+      "model": "Logistic Regression",
+      "smote": true,
+      "accuracy": 0.880959249909845,
+      "precision": 0.6961952861952863,
+      "recall": 0.4578947368421053,
+      "f1": 0.5511799311799311,
+      "roc_auc": 0.8335196744360516
+    },
+    {
+      "model": "Random Forest",
+      "smote": true,
+      "accuracy": 0.8520302921024161,
+      "precision": 0.5947649213531566,
+      "recall": 0.2789473684210526,
+      "f1": 0.3738004102909387,
+      "roc_auc": 0.7821423559668282
+    },
+    {
+      "model": "XGBoost",
+      "smote": true,
+      "accuracy": 0.8647710061305445,
+      "precision": 0.6367393550188469,
+      "recall": 0.4,
+      "f1": 0.48869387398845376,
+      "roc_auc": 0.7984057783283004
+    }
+  ],
+  "use_smote_for": {
+    "Logistic Regression": false,
+    "Random Forest": true,
+    "XGBoost": true
+  },
+  "tuning_summary": {
+    "Logistic Regression": {
+      "smote_used": false,
+      "best_params": {
+        "class_weight": null,
+        "C": 0.3
+      },
+      "best_cv_f1": 0.5593746605843379
+    },
+    "Random Forest": {
+      "smote_used": true,
+      "best_params": {
+        "n_estimators": 200,
+        "min_samples_split": 2,
+        "min_samples_leaf": 2,
+        "max_features": "sqrt",
+        "max_depth": 12,
+        "class_weight": "balanced_subsample"
+      },
+      "best_cv_f1": 0.47040132976033977
+    },
+    "XGBoost": {
+      "smote_used": true,
+      "best_params": {
+        "subsample": 0.8,
+        "n_estimators": 400,
+        "min_child_weight": 1,
+        "max_depth": 3,
+        "learning_rate": 0.03,
+        "colsample_bytree": 0.9
+      },
+      "best_cv_f1": 0.5248402358666715
+    }
+  },
+  "model_comparison_at_0.5": [
+    {
+      "model": "Logistic Regression",
+      "threshold": 0.5,
+      "accuracy": 0.8605442176870748,
+      "precision": 0.6153846153846154,
+      "recall": 0.3404255319148936,
+      "f1": 0.4383561643835616,
+      "roc_auc": 0.8080799379791542
+    },
+    {
+      "model": "Random Forest",
+      "threshold": 0.5,
+      "accuracy": 0.8401360544217688,
+      "precision": 0.5,
+      "recall": 0.2765957446808511,
+      "f1": 0.3561643835616438,
+      "roc_auc": 0.7755189938840554
+    },
+    {
+      "model": "XGBoost",
+      "threshold": 0.5,
+      "accuracy": 0.8469387755102041,
+      "precision": 0.5333333333333333,
+      "recall": 0.3404255319148936,
+      "f1": 0.4155844155844156,
+      "roc_auc": 0.8043759152381773
+    }
+  ],
+  "oof_model_selection": [
+    {
+      "model": "Logistic Regression",
+      "best_threshold": 0.35,
+      "oof_precision": 0.6174863387978142,
+      "oof_recall": 0.5947368421052631,
+      "oof_f1": 0.6058981233243967,
+      "oof_roc_auc": 0.8372050816696914,
+      "rank_score": 1.112567814794451
+    },
+    {
+      "model": "Random Forest",
+      "best_threshold": 0.4,
+      "oof_precision": 0.489247311827957,
+      "oof_recall": 0.4789473684210526,
+      "oof_f1": 0.48404255319148937,
+      "oof_roc_auc": 0.776838902530159,
+      "rank_score": 0.9177259630345553
+    },
+    {
+      "model": "XGBoost",
+      "best_threshold": 0.35,
+      "oof_precision": 0.5094339622641509,
+      "oof_recall": 0.5684210526315789,
+      "oof_f1": 0.5373134328358209,
+      "oof_roc_auc": 0.8130831643002029,
+      "rank_score": 1.024794750226661
+    }
+  ],
+  "best_model": "Logistic Regression",
+  "threshold_sweep_oof_train": [
+    {
+      "threshold": 0.2,
+      "precision": 0.4166666666666667,
+      "recall": 0.7105263157894737,
+      "f1": 0.5252918287937743
+    },
+    {
+      "threshold": 0.25,
+      "precision": 0.46886446886446886,
+      "recall": 0.6736842105263158,
+      "f1": 0.5529157667386609
+    },
+    {
+      "threshold": 0.3,
+      "precision": 0.5384615384615384,
+      "recall": 0.6263157894736842,
+      "f1": 0.5790754257907542
+    },
+    {
+      "threshold": 0.35,
+      "precision": 0.6174863387978142,
+      "recall": 0.5947368421052631,
+      "f1": 0.6058981233243967
+    },
+    {
+      "threshold": 0.4,
+      "precision": 0.6601307189542484,
+      "recall": 0.531578947368421,
+      "f1": 0.5889212827988338
+    },
+    {
+      "threshold": 0.45,
+      "precision": 0.736,
+      "recall": 0.4842105263157895,
+      "f1": 0.5841269841269842
+    },
+    {
+      "threshold": 0.5,
+      "precision": 0.7850467289719626,
+      "recall": 0.4421052631578947,
+      "f1": 0.5656565656565656
+    },
+    {
+      "threshold": 0.55,
+      "precision": 0.8111111111111111,
+      "recall": 0.38421052631578945,
+      "f1": 0.5214285714285715
+    },
+    {
+      "threshold": 0.6,
+      "precision": 0.8170731707317073,
+      "recall": 0.3526315789473684,
+      "f1": 0.49264705882352944
+    },
+    {
+      "threshold": 0.65,
+      "precision": 0.8088235294117647,
+      "recall": 0.2894736842105263,
+      "f1": 0.4263565891472868
+    },
+    {
+      "threshold": 0.7,
+      "precision": 0.8823529411764706,
+      "recall": 0.23684210526315788,
+      "f1": 0.37344398340248963
+    }
+  ],
+  "chosen_threshold": 0.35,
+  "best_model_test_at_0.5": {
+    "threshold": 0.5,
+    "accuracy": 0.8605442176870748,
+    "precision": 0.6153846153846154,
+    "recall": 0.3404255319148936,
+    "f1": 0.4383561643835616,
+    "roc_auc": 0.8080799379791542,
+    "confusion_matrix": [
+      [
+        237,
+        10
+      ],
+      [
+        31,
+        16
+      ]
+    ]
+  },
+  "best_model_test_at_chosen_threshold": {
+    "threshold": 0.35,
+    "accuracy": 0.8401360544217688,
+    "precision": 0.5,
+    "recall": 0.44680851063829785,
+    "f1": 0.47191011235955055,
+    "roc_auc": 0.8080799379791542,
+    "confusion_matrix": [
+      [
+        226,
+        21
+      ],
+      [
+        26,
+        21
+      ]
+    ]
+  },
+  "old_vs_new_same_test_set_caveat_leakage": {
+    "caveat": "attrition_model.pkl was trained with an unseeded train_test_split in the original notebook, so its training rows are unknown and likely overlap with this test set. Its score here is NOT a reliable measure of generalization and should not be read as 'old model is better'.",
+    "attrition_model.pkl (existing, threshold=0.5, likely leaked)": {
+      "threshold": 0.5,
+      "accuracy": 0.9795918367346939,
+      "precision": 0.9555555555555556,
+      "recall": 0.9148936170212766,
+      "f1": 0.9347826086956522,
+      "roc_auc": 0.9813937462313722,
+      "confusion_matrix": [
+        [
+          245,
+          2
+        ],
+        [
+          4,
+          43
+        ]
+      ]
+    },
+    "Logistic Regression v2 (threshold=0.5, clean held-out test)": {
+      "threshold": 0.5,
+      "accuracy": 0.8605442176870748,
+      "precision": 0.6153846153846154,
+      "recall": 0.3404255319148936,
+      "f1": 0.4383561643835616,
+      "roc_auc": 0.8080799379791542,
+      "confusion_matrix": [
+        [
+          237,
+          10
+        ],
+        [
+          31,
+          16
+        ]
+      ]
+    },
+    "Logistic Regression v2 (threshold=0.35, tuned, clean held-out test)": {
+      "threshold": 0.35,
+      "accuracy": 0.8401360544217688,
+      "precision": 0.5,
+      "recall": 0.44680851063829785,
+      "f1": 0.47191011235955055,
+      "roc_auc": 0.8080799379791542,
+      "confusion_matrix": [
+        [
+          226,
+          21
+        ],
+        [
+          26,
+          21
+        ]
+      ]
+    }
+  },
+  "old_model_historical_self_reported": {
+    "source": "notebooks/attrition_model.ipynb, cell 26 output (XGBoost Results), original training run",
+    "note": "Unseeded train_test_split -> not reproducible and not the same rows as our test set, but this IS the model's own genuine held-out evaluation from when it was trained, unlike the same-test-set comparison above which is confounded by likely row overlap.",
+    "test_support": 294,
+    "accuracy": 0.88,
+    "precision_attrition_yes": 0.8,
+    "recall_attrition_yes": 0.4,
+    "f1_attrition_yes": 0.53,
+    "roc_auc": null
+  },
+  "operating_points": {
+    "high_recall": {
+      "threshold": 0.2,
+      "precision": 0.4166666666666667,
+      "recall": 0.7105263157894737,
+      "f1": 0.5252918287937743
+    },
+    "balanced": {
+      "threshold": 0.35,
+      "precision": 0.6174863387978142,
+      "recall": 0.5947368421052631,
+      "f1": 0.6058981233243967
+    },
+    "high_precision": {
+      "threshold": 0.6,
+      "precision": 0.8170731707317073,
+      "recall": 0.3526315789473684,
+      "f1": 0.49264705882352944
+    }
+  }
+}

@@ -1,0 +1,6 @@
+# Extra dependency needed only to run src/train_model_v3.py (the CatBoost
+# comparison). The deployed Streamlit app never imports catboost - it isn't
+# needed to run app.py, so it's kept out of requirements.txt to keep the
+# app's deployment footprint minimal.
+-r requirements.txt
+catboost==1.2.10
