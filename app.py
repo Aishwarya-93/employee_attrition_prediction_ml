@@ -43,6 +43,20 @@ h1, h2, h3 { color: #4b3f9e; }
 .risk-low { background: linear-gradient(135deg, #34c98f, #2fae7f); }
 .risk-medium { background: linear-gradient(135deg, #f2b84b, #e0942a); }
 .risk-high { background: linear-gradient(135deg, #ef5f6f, #d43d4f); }
+div.stButton > button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: none;
+}
+.stSlider label, .stNumberInput label, .stSelectbox label, .stMultiSelect label {
+    color: #1e1e2f !important;
+}
+.stSlider span { color: #1e1e2f !important; }
+[data-testid="stMetricLabel"] { color: #1e1e2f !important; }
+[data-testid="stMetricValue"] { color: #2c2650 !important; }
 </style>
 """
 st.markdown(PURPLE_BLUE_CSS, unsafe_allow_html=True)
@@ -310,6 +324,14 @@ with tab1:
 
     threshold_pct = st.slider("Decision threshold (%)", 10, 90, key="threshold_pct")
     threshold = threshold_pct / 100
+
+    if threshold_pct <= 25:
+        tolerance_label = "Low tolerance - flags risk early, more false alarms"
+    elif threshold_pct <= 55:
+        tolerance_label = "Medium tolerance - balanced"
+    else:
+        tolerance_label = "High tolerance - flags only clear risk, fewer false alarms"
+    st.caption(f"**{tolerance_label}** (threshold = {threshold_pct}%)")
 
     if st.button("Predict", type="primary"):
         raw = {
