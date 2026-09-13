@@ -51,10 +51,12 @@ div.stButton > button {
     font-weight: bold;
     border: none;
 }
-.stSlider label, .stNumberInput label, .stSelectbox label, .stMultiSelect label {
-    color: #1e1e2f !important;
+.stSlider label, .stNumberInput label, .stSelectbox label, .stMultiSelect label,
+.stRadio label, .stTextInput label, .stDateInput label,
+[data-testid="stWidgetLabel"] label, [data-testid="stWidgetLabel"] p {
+    color: #F3F4F6 !important;
 }
-.stSlider span { color: #1e1e2f !important; }
+.stSlider span { color: #F3F4F6 !important; }
 [data-testid="stMetricLabel"] { color: #1e1e2f !important; }
 [data-testid="stMetricValue"] { color: #2c2650 !important; }
 </style>
