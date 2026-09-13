@@ -59,6 +59,37 @@ div.stButton > button {
 .stSlider span { color: #F3F4F6 !important; }
 [data-testid="stMetricLabel"] { color: #1e1e2f !important; }
 [data-testid="stMetricValue"] { color: #2c2650 !important; }
+
+[data-testid="stWidgetLabel"],
+[data-testid="stWidgetLabel"] *,
+[data-testid="stWidgetLabel"] label,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] span,
+[data-testid="stWidgetLabel"] div,
+[data-testid="stWidgetLabel"] small,
+.stSelectbox [data-testid="stWidgetLabel"],
+.stSlider [data-testid="stWidgetLabel"],
+.stNumberInput [data-testid="stWidgetLabel"],
+.stTextInput [data-testid="stWidgetLabel"],
+.stTextArea [data-testid="stWidgetLabel"],
+.stRadio [data-testid="stWidgetLabel"],
+.stCheckbox [data-testid="stWidgetLabel"],
+.stMultiSelect [data-testid="stWidgetLabel"],
+.stDateInput [data-testid="stWidgetLabel"] {
+    color: #F3F4F6 !important;
+}
+
+.stSelectbox label,
+.stSlider label,
+.stNumberInput label,
+.stTextInput label,
+.stTextArea label,
+.stRadio label,
+.stCheckbox label,
+.stMultiSelect label,
+.stDateInput label {
+    color: #F3F4F6 !important;
+}
 </style>
 """
 st.markdown(PURPLE_BLUE_CSS, unsafe_allow_html=True)
